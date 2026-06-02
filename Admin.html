@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kirtan Admin Panel</title>
+
+  <!-- GOOGLE FONT -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:#0f111a;
+      overflow-x:hidden;
+      color:white;
+    }
+
+    /* ================= SIDEBAR ================= */
+
+    .sidebar{
+      width:280px;
+      height:100vh;
+      background:#151823;
+      position:fixed;
+      top:0;
+      left:0;
+      padding:40px 25px;
+      border-right:1px solid rgba(255,255,255,0.05);
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin-bottom:60px;
+    }
+
+    .logo img{
+      width:65px;
+      height:65px;
+      border-radius:50%;
+      object-fit:cover;
+    }
+
+    .logo h2{
+      font-size:28px;
+      font-weight:700;
+    }
+
+    .menu{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .menu a{
+      text-decoration:none;
+      color:#aaa;
+      padding:18px 20px;
+      border-radius:14px;
+      transition:0.4s;
+      display:flex;
+      align-items:center;
+      gap:15px;
+      font-size:18px;
+      font-weight:500;
+    }
+
+    .menu a:hover,
+    .menu a.active{
+      background:#ff0057;
+      color:#fff;
+      transform:translateX(5px);
+    }
+
+    /* ================= MAIN ================= */
+
+    .main{
+      margin-left:280px;
+      padding:40px;
+    }
+
+    /* TOP BAR */
+
+    .topbar{
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:40px;
+    }
+
+    .topbar h1{
+      font-size:40px;
+    }
+
+    .admin-profile{
+      display:flex;
+      align-items:center;
+      gap:15px;
+    }
+
+    .admin-profile img{
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      object-fit:cover;
+      border:3px solid #ff0057;
+    }
+
+    .admin-profile h3{
+      font-size:18px;
+    }
+
+    /* ================= STATS ================= */
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:25px;
+      margin-bottom:45px;
+    }
+
+    .card{
+      background:#151823;
+      padding:35px;
+      border-radius:25px;
+      position:relative;
+      overflow:hidden;
+      transition:0.4s;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+      border-color:#ff0057;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      background:#ff005715;
+      border-radius:50%;
+      top:-80px;
+      right:-80px;
+    }
+
+    .card i{
+      font-size:45px;
+      margin-bottom:20px;
+      color:#ff0057;
+    }
+
+    .card h1{
+      font-size:45px;
+      margin-bottom:10px;
+    }
+
+    .card p{
+      color:#aaa;
+      font-size:18px;
+    }
+
+    /* ================= TABLE ================= */
+
+    .table-section{
+      background:#151823;
+      border-radius:25px;
+      padding:35px;
+      overflow-x:auto;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .table-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:30px;
+    }
+
+    .table-header h2{
+      font-size:30px;
+    }
+
+    .search-box{
+      position:relative;
+    }
+
+    .search-box input{
+      width:280px;
+      padding:14px 18px;
+      border:none;
+      border-radius:12px;
+      background:#0f111a;
+      color:#fff;
+      outline:none;
+      font-size:15px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    table thead{
+      background:#0f111a;
+    }
+
+    table th{
+      padding:20px;
+      text-align:left;
+      color:#fff;
+      font-size:17px;
+    }
+
+    table td{
+      padding:20px;
+      color:#bbb;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      font-size:15px;
+    }
+
+    .status{
+      padding:10px 18px;
+      border-radius:30px;
+      background:#00c85320;
+      color:#00ff88;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .delete-btn{
+      padding:10px 16px;
+      border:none;
+      border-radius:10px;
+      background:#ff0057;
+      color:#fff;
+      cursor:pointer;
+      transition:0.4s;
+    }
+
+    .delete-btn:hover{
+      transform:scale(1.08);
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media(max-width:1200px){
+
+      .stats{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+    }
+
+    @media(max-width:900px){
+
+      .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+      }
+
+      .main{
+        margin-left:0;
+      }
+
+    }
+
+    @media(max-width:768px){
+
+      .stats{
+        grid-template-columns:1fr;
+      }
+
+      .topbar{
+        flex-direction:column;
+        gap:20px;
+        align-items:flex-start;
+      }
+
+      .table-header{
+        flex-direction:column;
+        gap:20px;
+        align-items:flex-start;
+      }
+
+      .search-box input{
+        width:100%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+
+  <div class="sidebar">
+
+    <div class="logo">
+
+      <img src="./media/WhatsApp Image 2025-12-16 at 01.53.03_1988e284.jpg">
+
+      <h2>Kirtan</h2>
+
+    </div>
+
+    <div class="menu">
+
+      <a href="#" class="active">
+        <i class="fa-solid fa-chart-line"></i>
+        Dashboard
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-user"></i>
+        Visitors
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-envelope"></i>
+        Messages
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-folder"></i>
+        Projects
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-download"></i>
+        Resume Downloads
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-gear"></i>
+        Settings
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- ================= MAIN ================= -->
+
+  <div class="main">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+      <h1>Admin Dashboard</h1>
+
+      <div class="admin-profile">
+
+        <img src="./media/WhatsApp Image 2025-12-16 at 01.53.03_1988e284.jpg">
+
+        <div>
+          <h3>Kirtan</h3>
+          <p style="color:#aaa;">Full Stack Developer</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= STATS ================= -->
+
+    <div class="stats">
+
+      <div class="card">
+
+        <i class="fa-solid fa-eye"></i>
+
+        <h1 id="views">0</h1>
+
+        <p>Total Portfolio Views</p>
+
+      </div>
+
+      <div class="card">
+
+        <i class="fa-solid fa-envelope"></i>
+
+        <h1 id="messages">0</h1>
+
+        <p>Contact Messages</p>
+
+      </div>
+
+      <div class="card">
+
+        <i class="fa-solid fa-download"></i>
+
+        <h1 id="downloads">0</h1>
+
+        <p>Resume Downloads</p>
+
+      </div>
+
+      <div class="card">
+
+        <i class="fa-solid fa-folder"></i>
+
+        <h1 id="projects">15</h1>
+
+        <p>Total Projects</p>
+
+      </div>
+
+    </div>
+
+    <!-- ================= TABLE ================= -->
+
+    <div class="table-section">
+
+      <div class="table-header">
+
+        <h2>Recent Messages</h2>
+
+        <div class="search-box">
+
+          <input type="text" placeholder="Search Messages..." id="searchInput">
+
+        </div>
+
+      </div>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Action</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="messageTable">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+
+ <script>
+
+// DASHBOARD STATS
+
+async function loadStats(){
+
+try{
+
+const response =
+await fetch("http://localhost:5000/stats");
+
+const data =
+await response.json();
+
+document.getElementById("views").innerText =
+data.views;
+
+document.getElementById("messages").innerText =
+data.messages;
+
+document.getElementById("downloads").innerText =
+data.downloads;
+
+document.getElementById("projects").innerText =
+data.projects;
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+// LOAD MESSAGES
+
+async function loadMessages(){
+
+try{
+
+const response =
+await fetch("http://localhost:5000/messages");
+
+const messages =
+await response.json();
+
+const table =
+document.getElementById("messageTable");
+
+table.innerHTML = "";
+
+if(messages.length === 0){
+
+table.innerHTML = `
+<tr>
+<td colspan="6" style="text-align:center;color:#777;">
+No Messages Found
+</td>
+</tr>
+`;
+
+return;
+
+}
+
+messages.forEach((msg)=>{
+
+table.innerHTML += `
+
+<tr>
+
+<td>${msg.name}</td>
+
+<td>${msg.email}</td>
+
+<td>${msg.subject}</td>
+
+<td>${msg.message}</td>
+
+<td>
+<span class="status">
+New
+</span>
+</td>
+
+<td>
+<button
+class="delete-btn"
+onclick="deleteMessage('${msg._id}')">
+Delete
+</button>
+</td>
+
+</tr>
+
+`;
+
+});
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+// DELETE
+
+async function deleteMessage(id){
+
+if(!confirm("Delete Message ?"))
+return;
+
+try{
+
+await fetch(
+`http://localhost:5000/messages/${id}`,
+{
+method:"DELETE"
+}
+);
+
+loadMessages();
+loadStats();
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+// SEARCH
+
+document.getElementById("searchInput")
+.addEventListener("keyup",function(){
+
+const value =
+this.value.toLowerCase();
+
+const rows =
+document.querySelectorAll("#messageTable tr");
+
+rows.forEach((row)=>{
+
+row.style.display =
+row.innerText.toLowerCase().includes(value)
+? ""
+: "none";
+
+});
+
+});
+
+// AUTO LOAD
+
+loadStats();
+loadMessages();
+
+</script>
+
+</body>
+
+</html>

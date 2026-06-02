@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kirtan Services</title>
+
+  <!-- GOOGLE FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f5f5f5;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ================= CUSTOM CURSOR ================= */
+
+    .cursor {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #111;
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 99999;
+      transition: 0.08s;
+    }
+
+    .cursor-dot {
+      width: 10px;
+      height: 10px;
+      background: #ff0057;
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 99999;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+      width: 100%;
+      height: 100px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 70px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 45px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #111;
+      font-size: 18px;
+      font-weight: 500;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0%;
+      height: 2px;
+      background: #ff0057;
+      transition: 0.4s;
+    }
+
+    .nav-links a:hover {
+      color: #ff0057;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .buy-btn {
+      padding: 16px 35px;
+      border: 2px solid #999;
+      border-radius: 12px;
+      background: transparent;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.4s;
+      font-weight: 600;
+    }
+
+    .buy-btn:hover {
+      background: #ff0057;
+      color: #fff;
+      border-color: #ff0057;
+      transform: translateY(-3px);
+    }
+
+    /* ================= SERVICES ================= */
+
+    .services {
+      width: 100%;
+      padding: 180px 80px 120px;
+      position: relative;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+
+    .services::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: #ff005720;
+      border-radius: 50%;
+      top: -200px;
+      left: -100px;
+      filter: blur(100px);
+      animation: move1 8s linear infinite alternate;
+    }
+
+    .services::after {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: #00000008;
+      border-radius: 50%;
+      bottom: -100px;
+      right: -80px;
+      filter: blur(90px);
+      animation: move2 8s linear infinite alternate;
+    }
+
+    @keyframes move1 {
+      0% {
+        transform: translateY(0px);
+      }
+
+      100% {
+        transform: translateY(80px);
+      }
+    }
+
+    @keyframes move2 {
+      0% {
+        transform: translateX(0px);
+      }
+
+      100% {
+        transform: translateX(-80px);
+      }
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title h2 {
+      font-size: 65px;
+      color: #111;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .section-title p {
+      color: #666;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    /* ================= GRID ================= */
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ================= CARD ================= */
+
+    .service-card {
+      position: relative;
+      background: #fff;
+      border-radius: 30px;
+      padding: 45px 35px;
+      overflow: hidden;
+      transition: 0.5s;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+      border: 1px solid #ececec;
+    }
+
+    .service-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 45px rgba(255, 0, 87, 0.15);
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg,
+          #ff0057,
+          #ff4d88);
+      transition: 0.6s;
+    }
+
+    .service-card:hover::before {
+      left: 0;
+    }
+
+    .service-card::after {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: #ff005710;
+      border-radius: 50%;
+      top: -120px;
+      right: -120px;
+      transition: 0.5s;
+    }
+
+    .service-card:hover::after {
+      transform: scale(1.3);
+    }
+
+    /* ================= ICON ================= */
+
+    .service-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 24px;
+      background: linear-gradient(135deg,
+          #ff0057,
+          #ff4d88);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #fff;
+      font-size: 34px;
+      margin-bottom: 35px;
+
+      box-shadow: 0 10px 30px rgba(255, 0, 87, 0.25);
+
+      position: relative;
+      z-index: 2;
+
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+
+    }
+
+    .service-card h3 {
+      font-size: 30px;
+      color: #111;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-card p {
+      color: #666;
+      line-height: 1.9;
+      font-size: 16px;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ================= BUTTON ================= */
+
+    .service-btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 14px 24px;
+      border-radius: 12px;
+
+      background: #111;
+      color: #fff;
+
+      font-size: 15px;
+      font-weight: 600;
+
+      transition: 0.4s;
+
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-btn:hover {
+      background: #ff0057;
+      transform: translateX(8px);
+    }
+
+    /* ================= STATS ================= */
+
+    .stats {
+      width: 100%;
+      margin-top: 90px;
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-box {
+      background: #fff;
+      padding: 40px 20px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: 0.4s;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-10px);
+      background: #ff0057;
+    }
+
+    .stat-box h1 {
+      font-size: 55px;
+      color: #ff0057;
+      margin-bottom: 12px;
+      transition: 0.4s;
+    }
+
+    .stat-box p {
+      color: #666;
+      font-size: 18px;
+      transition: 0.4s;
+    }
+
+    .stat-box:hover h1,
+    .stat-box:hover p {
+      color: #fff;
+    }
+
+    /* ================= NEW FOOTER ================= */
+
+    .footer {
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* LEFT SIDE */
+
+    .footer-left {
+      position: relative;
+      background: linear-gradient(135deg, #ff1e3c, #ff0066);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .footer-left::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/topography.png');
+      opacity: 0.15;
+    }
+
+    .shape-image {
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      background: url('./media/big-logo.png') center/cover;
+      clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+      opacity: 0.75;
+    }
+
+    .footer-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      max-width: 500px;
+    }
+
+    .footer-content p {
+      font-size: 18px;
+      letter-spacing: 6px;
+      margin-bottom: 25px;
+    }
+
+    .footer-content h1 {
+      font-size: 90px;
+      line-height: 1.05;
+      font-weight: 800;
+      margin-bottom: 50px;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      padding: 20px 45px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 600;
+      transition: 0.4s;
+    }
+
+    .contact-btn:hover {
+      background: #fff;
+      color: #ff0057;
+      transform: translateY(-5px);
+    }
+
+    /* RIGHT SIDE */
+
+    .footer-right {
+      background: #10111d;
+      position: relative;
+      overflow: hidden;
+      color: #999;
+      padding: 120px 90px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .footer-right::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%) 0 0/80px 80px,
+        linear-gradient(300deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%) 0 0/80px 80px;
+      opacity: 0.5;
+    }
+
+    .footer-box {
+      display: flex;
+      justify-content: center;
+      gap: 140px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-box h2 {
+      color: #fff;
+      font-size: 38px;
+      margin-bottom: 35px;
+      font-weight: 700;
+    }
+
+    .footer-links,
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-links a,
+    .footer-contact a {
+      color: #9c9c9c;
+      text-decoration: none;
+      font-size: 22px;
+      margin-bottom: 25px;
+      transition: 0.3s;
+      width: fit-content;
+    }
+
+    .footer-links a:hover,
+    .footer-contact a:hover {
+      color: #ff0057;
+      transform: translateX(8px);
+    }
+
+    /* SOCIAL ICONS */
+
+    .social-icons {
+      display: flex;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 20px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: 0.4s;
+    }
+
+    .social-icons a:hover {
+      background: white;
+      color: #ff0057;
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(220, 39, 67, 0.4);
+    }
+
+    /* COPYRIGHT */
+
+    .copyright {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 100px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .copyright p {
+      font-size: 18px;
+      color: #9c9c9c;
+    }
+
+    /* TOP BUTTON */
+
+    .top-btn {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      border: none;
+      background: #fff;
+      color: #ff0057;
+      font-size: 28px;
+      cursor: pointer;
+      transition: 0.4s;
+      font-weight: bold;
+    }
+
+    .top-btn:hover {
+      background: #ff0057;
+      color: #fff;
+      transform: translateY(-8px) rotate(360deg);
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media(max-width:1100px) {
+
+      .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+    @media(max-width:992px) {
+
+      .navbar {
+        padding: 0 30px;
+      }
+
+      .footer {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-left {
+        min-height: 500px;
+      }
+
+      .footer-right {
+        padding: 80px 40px;
+      }
+
+      .footer-box {
+        flex-direction: column;
+        gap: 60px;
+      }
+
+      .copyright {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+      }
+
+    }
+
+    @media(max-width:768px) {
+
+      body {
+        cursor: auto;
+      }
+
+      .cursor,
+      .cursor-dot {
+        display: none;
+      }
+
+      .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        gap: 20px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .services {
+        padding: 220px 20px 80px;
+      }
+
+      .section-title h2 {
+        font-size: 42px;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        padding: 0 20px;
+      }
+
+      .footer-content h1 {
+        font-size: 52px;
+      }
+
+      .footer-box h2 {
+        font-size: 30px;
+      }
+
+      .footer-links a,
+      .footer-contact a {
+        font-size: 18px;
+      }
+
+      .copyright p {
+        font-size: 15px;
+      }
+
+      .top-btn {
+        width: 65px;
+        height: 65px;
+        font-size: 24px;
+      }
+
+      .shape-image {
+        width: 260px;
+        height: 260px;
+      }
+
+      .social-icons {
+        flex-wrap: wrap;
+      }
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- CUSTOM CURSOR -->
+
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <div class="logo">
+      <img src="./media/WhatsApp Image 2025-12-16 at 01.53.03_1988e284.jpg" alt="">
+    </div>
+
+    <div class="nav-links">
+      <a href="Home.html">Home</a>
+      <a href="About.html">About</a>
+      <a href="service.html">Service</a>
+      <a href="Project.html">Projects</a>
+      <a href="Contect.html">Contact</a>
+    </div>
+
+
+    <a href="./media/Shiyal_Kirtan_resume.pdf" download onclick="addDownload()">
+      <button class="buy-btn">DOWNLOAD CV</button>
+    </a>
+
+  </nav>
+
+  <!-- SERVICES -->
+
+  <section class="services" id="services">
+
+    <div class="section-title">
+
+      <h2>My Services</h2>
+
+      <p>
+        Modern solutions with trending UI animations
+      </p>
+
+    </div>
+
+    <!-- SERVICE GRID -->
+
+    <div class="service-grid">
+
+      <div class="service-card">
+
+        <div class="service-icon">
+          <i class="fa-solid fa-code"></i>
+        </div>
+
+        <h3>Web Development</h3>
+
+        <p>
+          Responsive modern websites using HTML,
+          CSS, JavaScript, React JS and smooth animations.
+        </p>
+
+        <a href="#" class="service-btn">
+          Explore More
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+      </div>
+
+      <div class="service-card">
+
+        <div class="service-icon">
+          <i class="fa-brands fa-wordpress"></i>
+        </div>
+
+        <h3>WordPress Design</h3>
+
+        <p>
+          Modern Elementor websites with premium layouts,
+          responsive sections and fast performance.
+        </p>
+
+        <a href="#" class="service-btn">
+          Explore More
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+      </div>
+
+      <div class="service-card">
+
+        <div class="service-icon">
+          <i class="fa-solid fa-mobile-screen"></i>
+        </div>
+
+        <h3>Mobile UI Design</h3>
+
+        <p>
+          Creative mobile app interfaces with modern
+          color combinations and glassmorphism effects.
+        </p>
+
+        <a href="#" class="service-btn">
+          Explore More
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+      </div>
+
+      <div class="service-card">
+
+        <div class="service-icon">
+          <i class="fa-solid fa-rocket"></i>
+        </div>
+
+        <h3>Fast Performance</h3>
+
+        <p>
+          Optimized websites with clean code,
+          smooth interactions and fast loading speed.
+        </p>
+
+        <a href="#" class="service-btn">
+          Explore More
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+      </div>
+
+      <div class="service-card">
+
+        <div class="service-icon">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+
+        <h3>Creative UI Design</h3>
+
+        <p>
+          Trendy interfaces with hover effects,
+          clean layouts and attractive visual experience.
+        </p>
+
+        <a href="#" class="service-btn">
+          Explore More
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+      </div>
+
+      <div class="service-card">
+
+        <div class="service-icon">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+
+        <h3>Frontend Projects</h3>
+
+        <p>
+          Interactive frontend projects with reusable
+          components and premium animation effects.
+        </p>
+
+        <a href="#" class="service-btn">
+          Explore More
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+      <div class="stat-box">
+        <h1>15+</h1>
+        <p>Projects</p>
+      </div>
+
+      <div class="stat-box">
+        <h1>10+</h1>
+        <p>Clients</p>
+      </div>
+
+      <div class="stat-box">
+        <h1>2+</h1>
+        <p>Years Practice</p>
+      </div>
+
+      <div class="stat-box">
+        <h1>100%</h1>
+        <p>Responsive</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- NEW FOOTER -->
+
+  <footer class="footer">
+
+    <!-- LEFT SIDE -->
+
+    <div class="footer-left">
+
+      <div class="shape-image"></div>
+
+      <div class="footer-content">
+
+        <p>READY TO DO THIS</p>
+
+        <h1>
+          Let's get <br>
+          to work
+        </h1>
+
+        <a href="#" class="contact-btn">
+          CONTACT US
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="footer-right">
+
+      <div class="footer-box">
+
+        <div class="footer-links">
+
+          <h2>Quick Link</h2>
+
+          <a href="#">Work</a>
+          <a href="#">About</a>
+          <a href="#">Let's Talk</a>
+
+        </div>
+
+        <div class="footer-contact">
+
+          <h2>Say Hello</h2>
+
+          <a href="#">shiyalkirtan007@gmail.com</a>
+          <a href="#">hr@example.com</a>
+
+          <div class="social-icons">
+
+            <a href="#">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+            <a href="#">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+
+            <a href="#">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="#">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- COPYRIGHT -->
+
+      <div class="copyright">
+
+        <p>
+          Copyright © 2026 Kirtan Portfolio. All Rights Reserved.
+        </p>
+
+        <button class="top-btn" onclick="scrollTopBtn()">
+          ↑
+        </button>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    // CUSTOM CURSOR
+
+    const cursor = document.querySelector(".cursor");
+    const dot = document.querySelector(".cursor-dot");
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    let circleX = 0;
+    let circleY = 0;
+
+    document.addEventListener("mousemove", (e) => {
+
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      dot.style.left = mouseX + "px";
+      dot.style.top = mouseY + "px";
+
+    });
+
+    function animateCursor() {
+
+      circleX += (mouseX - circleX) * 0.08;
+      circleY += (mouseY - circleY) * 0.08;
+
+      cursor.style.left = circleX + "px";
+      cursor.style.top = circleY + "px";
+
+      requestAnimationFrame(animateCursor);
+
+    }
+
+    animateCursor();
+
+    // SCROLL TOP
+
+    function scrollTopBtn() {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+    fetch(
+      "http://localhost:5000/add-view",
+      {
+        method: "POST"
+      }
+    );
+
+    async function addDownload() {
+
+      await fetch(
+        "http://localhost:5000/add-download",
+        {
+          method: "POST"
+        }
+      );
+
+    }
+  </script>
+
+</body>
+
+</html>

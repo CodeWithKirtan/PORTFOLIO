@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>portfolio website</title>
+
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'poppins', sans-serif;
+    }
+
+    body {
+      background-color: #081b29;
+      color: #ededed;
+    }
+
+    /* ================= HEADER ================= */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 25px;
+      color: #ededed;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .navbar {
+      display: flex;
+    }
+
+    .navbar a {
+      font-size: 18px;
+      color: #ededed;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 35px;
+      transition: .3s;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      color: #00abf0;
+    }
+
+    /* ===== MENU ICON ===== */
+    .menu-icon {
+      font-size: 32px;
+      color: #ededed;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* ================= HOME ================= */
+    .home {
+      height: 100vh;
+      background: url(./media/kirtan\ photos.jpg) no-repeat;
+      background-size: 110vh;
+      background-position: right;
+      display: flex;
+      align-items: center;
+      padding: 0 10%;
+    }
+
+    .home-content {
+      max-width: 600px;
+    }
+
+    .home-content h1 {
+      font-size: 56px;
+      font-weight: 700;
+    }
+
+    .home-content h3 {
+      font-size: 32px;
+      color: #00abf0;
+    }
+
+    .home-content p {
+      margin: 20px 0 40px;
+    }
+
+    .btn-box {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn-box a {
+      padding: 12px 30px;
+      background: #00abf0;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #081b29;
+      font-weight: 600;
+    }
+
+    .home-sci {
+      position: absolute;
+      bottom: 40px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .home-sci a {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #00abf0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00abf0;
+      text-decoration: none;
+    }
+
+    /* ================= ABOUT ================= */
+    .about {
+      padding: 100px 10% 50px;
+      text-align: center;
+    }
+
+    .heading {
+      font-size: 4rem;
+      margin-bottom: 40px;
+    }
+
+    span {
+      color: #00abf0;
+    }
+
+    .about-img {
+      position: relative;
+      width: 250px;
+      aspect-ratio: 1/1;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about-img img {
+      width: 90%;
+      height: 90%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .circle-spin {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid #00abf0;
+    }
+
+    .about-content {
+      max-width: 600px;
+      margin: 30px auto 0;
+    }
+
+    /* ================= RESPONSIVE MENU ================= */
+    @media (max-width: 768px) {
+
+      .menu-icon {
+        display: block;
+      }
+
+      .navbar {
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background: #081b29;
+        flex-direction: column;
+        width: 200px;
+        display: none;
+      }
+
+      .navbar.active {
+        display: flex;
+      }
+
+      .navbar a {
+        margin: 15px;
+      }
+
+      .home {
+        flex-direction: column;
+        background-size: 60vh;
+        background-position: center bottom;
+        text-align: center;
+        padding-top: 120px;
+      }
+
+      .home-sci {
+        position: static;
+        margin-top: 30px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="#" class="logo">Kirtan.</a>
+
+    <i class='bx bx-menu menu-icon' id="menu-btn"></i>
+
+    <nav class="navbar" id="navbar">
+      <a href="#" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#project">Project</a>
+      <a href="#skills">Skills</a>
+      <a href="#content">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <section class="home">
+    <div class="home-content">
+      <h1>HI I'M Kirtan</h1>
+      <h3>Fullstack Developer</h3>
+      <p>I design and develop complete web applications from front-end to back-end.</p>
+
+      <div class="btn-box">
+        <a href="#">Hire Me</a>
+        <a href="#">Let's Talk</a>
+      </div>
+    </div>
+
+    <div class="home-sci">
+      <a href="#"><i class='bx bxl-facebook'></i></a>
+      <a href="#"><i class='bx bxl-twitter'></i></a>
+      <a href="#"><i class='bx bxl-linkedin'></i></a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <h2 class="heading">About <span>Me</span></h2>
+
+    <div class="about-img">
+      <img src="./media/IMG_20230115_114234_092.jpg" alt="">
+      <span class="circle-spin"></span>
+    </div>
+
+    <div class="about-content">
+      <h3>Frontend Developer</h3>
+      <p>Passionate about building responsive and clean web applications.</p>
+    </div>
+  </section>
+
+  <!-- MENU SCRIPT -->
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const navbar = document.getElementById("navbar");
+
+    menuBtn.onclick = () => {
+      navbar.classList.toggle("active");
+    };
+  </script>
+
+</body>
+</html>
